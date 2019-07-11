@@ -1,4 +1,3 @@
-#画像の水増し
 from keras import models
 from keras.models import model_from_json
 from keras.preprocessing import image
@@ -59,16 +58,17 @@ big=[]
 
 #カテゴリ配列の各値と、それに対応するidxを認識しtestとtrainそれぞれで読みこむ
 for idx, cat in enumerate(categories):
+	temp=[]
     image_dir = root_dir + cat
     files = glob.glob(image_dir + "/*.jpg")
     for f in files:
         allfiles.append((idx, f))
+    random.shuffle(allfiles)
+    th = math.floor(len(allfiles) * 0.8)
+	train += allfiles[0:th]
+	test  += allfiles[th:]
+    
 
-#シャッフル後、学習データと検証データに分ける
-random.shuffle(allfiles)
-th = math.floor(len(allfiles) * 0.8)
-train = allfiles[0:th]
-test  = allfiles[th:]
 
 def draw_images(generator,x):
 	x2=(x[np.newaxis,:,:,:])
@@ -85,21 +85,19 @@ datagen = ImageDataGenerator(rotation_range=30,
                             horizontal_flip=True,
                             vertical_flip=True)
 
-random.shuffle(allfiles)
-th = math.floor(len(allfiles) * 0.8)
-train = allfiles[0:th]
-test  = allfiles[th:]
+#シャッフル後、学習データと検証データに分ける
 
-if not(os.path.exists('/Users/e175764/Desktop/Third/DataMining/Sea/x_data') and os.path.exists('/Users/e175764/Desktop/Third/DataMining/Sea/y_data')):
+
+if not(os.path.exists('/Users/e175764/Desktop/Third/DataMining/colorful/x_data') and os.path.exists('/Users/e175764/Desktop/Third/DataMining/Sea/y_data')):
 	X_train, y_train = make_sample(train,True)
-	mp.pickle_dump(X_train,'/Users/e175764/Desktop/Third/DataMining/Sea/x_data')
-	mp.pickle_dump(y_train,'/Users/e175764/Desktop/Third/DataMining/Sea/y_data')
+	mp.pickle_dump(X_train,'/Users/e175764/Desktop/Third/DataMining/colorful/x_data')
+	mp.pickle_dump(y_train,'/Users/e175764/Desktop/Third/DataMining/colorful/y_data')
 
-X_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/Sea/x_data')
-y_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/Sea/y_data')
+X_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/colorful/x_data')
+y_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/colorful/y_data')
 
 X_test, y_test = make_sample(test,False) #Falseでは水増しなし
 
 xy = (X_train, X_test, y_train, y_test)
 #データを保存する（データの名前を「tea_data.npy」としている）
-mp.pickle_dump(xy, save+"insta_data3.sav")
+mp.pickle_dump(xy, save+"insta_data1.sav") 
