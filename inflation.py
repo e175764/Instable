@@ -16,7 +16,8 @@ json_data = json.load(f)
 #画像が保存されているルートディレクトリのパス(水増し前)
 root_dir = json_data["images"]
 save = json_data["save_npy"]
-
+infx = json_data["infx"]
+infy = json_data["infy"]
 # 商品名
 categories = ["映える","映えない"]
 
@@ -55,16 +56,17 @@ def add_sample(cat, fname, X, Y, flag):
 #全データ格納用配列
 allfiles=[]
 big=[]
-
+train=[]
+test=[]
 #カテゴリ配列の各値と、それに対応するidxを認識しtestとtrainそれぞれで読みこむ
 for idx, cat in enumerate(categories):
 	temp=[]
-    image_dir = root_dir + cat
-    files = glob.glob(image_dir + "/*.jpg")
-    for f in files:
-        allfiles.append((idx, f))
-    random.shuffle(allfiles)
-    th = math.floor(len(allfiles) * 0.8)
+	image_dir = root_dir + cat
+	files = glob.glob(image_dir + "/*.jpg")
+	for f in files:
+		allfiles.append((idx, f))
+	random.shuffle(allfiles)
+	th = math.floor(len(allfiles) * 0.8)
 	train += allfiles[0:th]
 	test  += allfiles[th:]
     
@@ -88,13 +90,13 @@ datagen = ImageDataGenerator(rotation_range=30,
 #シャッフル後、学習データと検証データに分ける
 
 
-if not(os.path.exists('/Users/e175764/Desktop/Third/DataMining/colorful/x_data') and os.path.exists('/Users/e175764/Desktop/Third/DataMining/Sea/y_data')):
+if not(os.path.exists(infy) and os.path.exists(infx)):
 	X_train, y_train = make_sample(train,True)
-	mp.pickle_dump(X_train,'/Users/e175764/Desktop/Third/DataMining/colorful/x_data')
-	mp.pickle_dump(y_train,'/Users/e175764/Desktop/Third/DataMining/colorful/y_data')
+	mp.pickle_dump(X_train,infx)
+	mp.pickle_dump(y_train,infy)
 
-X_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/colorful/x_data')
-y_train = mp.pickle_load('/Users/e175764/Desktop/Third/DataMining/colorful/y_data')
+X_train = mp.pickle_load(infx)
+y_train = mp.pickle_load(infy)
 
 X_test, y_test = make_sample(test,False) #Falseでは水増しなし
 
