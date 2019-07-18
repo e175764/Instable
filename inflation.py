@@ -58,17 +58,19 @@ allfiles=[]
 big=[]
 train=[]
 test=[]
+
 #カテゴリ配列の各値と、それに対応するidxを認識しtestとtrainそれぞれで読みこむ
 for idx, cat in enumerate(categories):
 	temp=[]
 	image_dir = root_dir + cat
 	files = glob.glob(image_dir + "/*.jpg")
 	for f in files:
-		allfiles.append((idx, f))
+		allfiles.append((idx, f))#
 	random.shuffle(allfiles)
 	th = math.floor(len(allfiles) * 0.8)
 	train += allfiles[0:th]
 	test  += allfiles[th:]
+	allfiles=[]
     
 
 
@@ -102,4 +104,4 @@ X_test, y_test = make_sample(test,False) #Falseでは水増しなし
 
 xy = (X_train, X_test, y_train, y_test)
 #データを保存する（データの名前を「tea_data.npy」としている）
-mp.pickle_dump(xy, save+"insta_data1.sav") 
+mp.pickle_dump(xy, save+"insta_data3.sav") 
