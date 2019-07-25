@@ -18,7 +18,7 @@ root_dir = json_data["images"]
 save = json_data["save_npy"]
 infx = json_data["infx"]
 infy = json_data["infy"]
-# 商品名
+# カテゴリ
 categories = ["映える","映えない"]
 
 
@@ -31,13 +31,16 @@ def make_sample(files,flag):
         X,Y = add_sample(cat, fname,X,Y,flag)
     return np.array(X), np.array(Y)
 
+#画像水増しの際に用いる関数:どういった処理を行なって増やすかを決める.
+# ImageDataGeneratorを定義
 datagen = ImageDataGenerator(rotation_range=30,
                             width_shift_range=20,
                             height_shift_range=0.,
                             zoom_range=0.1,
                             horizontal_flip=True,
                             vertical_flip=True)
-#渡された画像データを読み込んでXに格納し、また、
+                            
+#渡された画像データを読み込んでXに格納する
 #画像データに対応するcategoriesのidxをY格納する関数
 def add_sample(cat, fname, X, Y, flag):
 	img = Image.open(fname)
@@ -45,6 +48,7 @@ def add_sample(cat, fname, X, Y, flag):
 	img = img.resize((150, 150))
 	data = np.asarray(img)
 	if(flag):
+		# 1つの入力画像から何枚拡張するかを指定（今回は50枚）
 		for i in range(50):
 			data2 = draw_images(datagen,data)
 			X.append(data2)
@@ -65,33 +69,23 @@ for idx, cat in enumerate(categories):
 	image_dir = root_dir + cat
 	files = glob.glob(image_dir + "/*.jpg")
 	for f in files:
-		allfiles.append((idx, f))#
+		allfiles.append((idx, f))
 	random.shuffle(allfiles)
+	#train:test = 8:2
 	th = math.floor(len(allfiles) * 0.8)
 	train += allfiles[0:th]
 	test  += allfiles[th:]
 	allfiles=[]
     
 
-
+#実際に水増しを行う関数
 def draw_images(generator,x):
 	x2=(x[np.newaxis,:,:,:])
 	g = generator.flow(x2,batch_size=1)
-	# 1つの入力画像から何枚拡張するかを指定（今回は50枚）
 	bach=np.reshape(g.next(),(150,150,3))
 	return bach
 
-# ImageDataGeneratorを定義
-datagen = ImageDataGenerator(rotation_range=30,
-                            width_shift_range=20,
-                            height_shift_range=0.,
-                            zoom_range=0.1,
-                            horizontal_flip=True,
-                            vertical_flip=True)
-
-#シャッフル後、学習データと検証データに分ける
-
-
+#x,yのデータがすでに存在する場合には読み込み,ない場合には新規作成してそれを読み込む
 if not(os.path.exists(infy) and os.path.exists(infx)):
 	X_train, y_train = make_sample(train,True)
 	mp.pickle_dump(X_train,infx)
