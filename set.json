@@ -1,9 +1,12 @@
-
 {
     "": "Inflation.pyの水増しする画像が入ったデータのディレクトリのパスを記述。",
-    "images": "/Users/e175764/Desktop/Third/DataMining/Sea/Data/",
-    "": ".npyとしてデータを保存する際の保存先のディレクトリ",
-    "save_npy": "/Users/e175764/Desktop/Third/DataMining/Sea/",
+    "images": "/Users/tuhadaiki/Instable/data1/",
+    "": ".savとしてデータを保存する際の保存先のディレクトリ",
+    "sav": "/Users/tuhadaiki/Instable/colorful",
+    "": "Inflation.pyから水増しした画像を読み込む時に参照させるディレクトリ",
+    "infx": "/Users/tuhadaiki/Instable/colorful/x_data",
+    "": "Inflation.pyから水増しした画像のカテゴリーを読み込む時に参照させるディレクトリ",
+    "infy": "/Users/tuhadaiki/Instable/colorful/y_data",
     "": "modeling.pyではPreprocessing.pyで作成したnpyのデータから学習モデルを生成させる。その.npyの保存先のディレクトリを示す必要がある。これは上述したsave_npyと等しいのでそれを再利用する。モデルの保存と重みの保存はしなければならないので、保存先のディレクトリを記述する。",
     "model": "/Users/tuhadaiki/Instable/colorful",
     "weight": "/Users/tuhadaiki/Instable/colorful"
