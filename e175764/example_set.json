@@ -1,0 +1,27 @@
+{
+    "": "Inflation.pyの水増しする画像が入ったデータのディレクトリのパスを記述。",
+    "images": "/Users/e175764/Desktop/Third/DataMining/colorful/Data/",
+    "": ".npyとしてデータを保存する際の保存先のディレクトリ",
+    "save_npy": "/Users/e175764/Desktop/Third/DataMining/colorful/",
+    "": "Inflation.pyから水増しした画像のメタデータを出力するディレクトリのパスを記述。",
+    "sav": "/Users/e175764/Desktop/Third/DataMining/colorful/",
+    "": "modeling.pyではPreprocessing.pyで作成したsavのデータから学習モデルを生成させる。その.npyの保存先のディレクトリを示す必要がある。これは上述したsave_npyと等しいのでそれを再利用する。モデルの保存と重みの保存はしなければならないので、保存先のディレクトリを記述する。",
+    "model": "/Users/e175764/Desktop/Third/DataMining/colorful",
+    "weight": "/Users/e175764/Desktop/Third/DataMining/colorful",
+    "infx":"/Users/e175764/Desktop/Third/DataMining/colorful/x_data",
+    "infy":"/Users/e175764/Desktop/Third/DataMining/colorful/y_data",
+    "": "instable.pyで, 今までに作成したモデルを読み込む際のパスを記述",
+    "colorful":"/Users/e175764/Desktop/Third/DataMining/models/colorful.h5",
+    "one_food":"/Users/e175764/Desktop/Third/DataMining/models/one_food.h5",
+    "many_foods":"/Users/e175764/Desktop/Third/DataMining/models/many_foods.h5",
+    "course_foods":"/Users/e175764/Desktop/Third/DataMining/models/course_foods.h5",
+    "drink":"/Users/e175764/Desktop/Third/DataMining/models/drink.h5",
+    "sweets":"/Users/e175764/Desktop/Third/DataMining/models/sweets.h5",
+    "bright":"/Users/e175764/Desktop/Third/DataMining/models/bright.h5",
+    "night":"/Users/e175764/Desktop/Third/DataMining/models/night.h5",
+    "illust":"/Users/e175764/Desktop/Third/DataMining/models/illust.h5",
+    "building":"/Users/e175764/Desktop/Third/DataMining/models/building.h5",
+    "photo_cat":"/Users/e175764/Desktop/Third/DataMining/models/categories.h5",
+    "food_cat":"/Users/e175764/Desktop/Third/DataMining/models/food_cat.h5"
+}
+
